@@ -2,9 +2,11 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import {About , Home , SignIn, SignUp, Profile} from "./pages";
+import { Header } from './components';
 const App = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         <Route path='/' element={<Home />}  />
         <Route path='/sign-in' element={<SignIn />}  />
