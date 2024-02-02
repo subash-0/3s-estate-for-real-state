@@ -23,13 +23,13 @@ const Header = () => {
       <div className='flex justify-center items-center '>
       <ul className='flex gap-4 fixed bottom-2 justify-center items-center   rounded-full uppercase bg-blue-100 hover:drop-shadow-sm'>
         <Link to={"/"}>
-        <li className='hover:bg-slate-500 p-4 px-5 hover:text-white rounded-xl flex gap-1 items-center justify-center'> <FaHome/> <span>Home</span> </li>
+        <li className='hover:bg-slate-500 p-4 px-5 hover:text-white rounded-xl flex gap-3 items-center justify-center'> <FaHome/> <span>Home</span> </li>
         </Link>
         <Link to={"/about"}>
-        <li className='hover:bg-slate-500 p-4 px-5 hover:text-white rounded-xl flex gap-1 items-center justify-center'> <FaUser/> <span>About</span> </li>
+        <li className='hover:bg-slate-500 p-4 px-5 hover:text-white rounded-xl flex gap-3 items-center justify-center'> <FaUser/> <span>About</span> </li>
         </Link>
         <Link to={"sign-in"}>
-        <li className='hover:bg-slate-500 p-4 px-5 hover:text-white rounded-xl flex gap-1 items-center justify-center'> <FaSignInAlt/> <span>SignIn</span> </li>
+        <li className='hover:bg-slate-500 p-4 px-5 hover:text-white rounded-xl flex gap-3 items-center justify-center'> <FaSignInAlt/> <span>SignIn</span> </li>
         </Link>
      
       </ul>
