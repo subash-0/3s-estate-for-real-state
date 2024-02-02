@@ -11,13 +11,17 @@ app.use(cors({
     
 }));
 app.use(cookieParser());
+app.use(express.json());
 
 const PORT = process.env.PORT;
  //Routes 
  import userRoute from "./db/routers/user.router.js";
+ import authRoute from "./db/routers/auth.route.js";
 
 
-app.use("/api/v1",userRoute);
 app.listen(PORT,()=>{
     console.log(`Server is running at port: ${PORT} !!`)
 })
+
+app.use("/api/v1",userRoute);
+app.use("/api/v1",authRoute);
