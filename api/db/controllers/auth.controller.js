@@ -3,7 +3,7 @@ import { hashPassword } from "../../security/passport.js";
 import { errorHandler } from "../../security/error.js";
 export const signup= async (req,res, next)=>{
     const {username , email, password} = req.body;
-    let HasPassword = hashPassword(password);
+    let HasPassword = hashPassword(JSON.stringify(password));
     const newUser = new User({username , email, password:HasPassword});
         try {
             await newUser.save();
