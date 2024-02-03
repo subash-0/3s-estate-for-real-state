@@ -1,11 +1,12 @@
 import User from "../models/user.model.js";
 import { camparePassword, hashPassword } from "../../security/passport.js";
 import { errorHandler } from "../../security/error.js";
+import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 export const signup= async (req,res, next)=>{
     const {username , email, password} = req.body;
-    let HasPassword = hashPassword(JSON.stringify(password));
-    const newUser = new User({username , email, password:HasPassword});
+    let HasPassword = hashPassword(password);
+    const newUser = new User({username , email,password:HasPassword});
         try {
             await newUser.save();
             res.status(201).json("User created Successfully !");
@@ -23,6 +24,7 @@ export const signin = async (req,res,next)=>{
         const userValid = await User.findOne({username});
         if(!userValid) return next(errorHandler(404, `User with ${username}, does not exist!`));
         const validPassword = camparePassword(password,userValid.password);
+        console.log(validPassword);
         if(!validPassword) return next(errorHandler(404,'Wrong credentials !'));
         const token = jwt.sign({id:userValid._id}, process.env.JWT_SECRET)
         const {password:pass, ...rest} = userValid._doc;
