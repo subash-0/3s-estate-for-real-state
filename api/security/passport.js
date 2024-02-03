@@ -8,3 +8,8 @@ export const hashPassword=(password)=>{
         console.log(error)
     }
 }
+
+export const camparePassword=(password,raw)=>{
+    return bcrypt.compareSync(password,raw);
+
+}
