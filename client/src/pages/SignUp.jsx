@@ -29,10 +29,12 @@ const SignUp = () => {
         if(data.success===false){
           setError(data.message);
           setLoading(false);
+        }else{
+          setError(null)
+          setLoading(false);
+          navigate('/sign-in');
         }
-      setError(null)
-      setLoading(false);
-      navigate('/sign-in');
+      
   } catch (error) {
     setError(error.message)
     setLoading(false);

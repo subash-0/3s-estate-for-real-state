@@ -1,15 +1,19 @@
 import User from "../models/user.model.js";
 import { camparePassword, hashPassword } from "../../security/passport.js";
 import { errorHandler } from "../../security/error.js";
-import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 export const signup= async (req,res, next)=>{
     const {username , email, password} = req.body;
     let HasPassword = hashPassword(password);
-    const newUser = new User({username , email,password:HasPassword});
         try {
-            await newUser.save();
+            const newUser = new User({username , email,password:HasPassword});
+            await newUser.save()
+            .then(()=>{
             res.status(201).json("User created Successfully !");
+            })
+            .catch((error)=>{
+                next(error)
+            })
 
         } catch (error) {
             next(error);

@@ -24,15 +24,16 @@ const SignIn = () => {
         },
         body:JSON.stringify(formData),
       })
-      let data = await res.json();
+      let data = await  res.json();
       console.log(data);
         if(data.success===false){
           setError(data.message);
           setLoading(false);
+        }else{
+          setError(null)
+          setLoading(false);
+
         }
-      setError(null)
-      setLoading(false);
-      navigate('/sign-in');
   } catch (error) {
     setError(error.message)
     setLoading(false);
