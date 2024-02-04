@@ -17,12 +17,14 @@ const OAuth = () => {
          axios.post('/api/v1/auth/google',{
                 name: result.user.displayName,
                 email: result.user.email,
-                photo: result.user.photoURL,
+                photo: JSON.stringify(result.user.photoURL),
+                
             }).then(({data})=>{
                 dispatch(signInSuccess(data));
                 navigate("/");
 
             });
+            
        
         } catch (error) {
             console.log('Could not signin with google',error);
