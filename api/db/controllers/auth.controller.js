@@ -26,7 +26,7 @@ export const signin = async (req,res,next)=>{
     const {username ,password} = req.body;
     try {
         const userValid = await User.findOne({username});
-        if(!userValid) return next(errorHandler(404, `User with ${username}, does not exist!`));
+        if(!userValid) return next(errorHandler(404, `User with  username :${username}, not found!`));
         const validPassword = camparePassword(password,userValid.password);
         console.log(validPassword);
         if(!validPassword) return next(errorHandler(404,'Wrong credentials !'));
