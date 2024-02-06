@@ -22,6 +22,7 @@ const SignIn = () => {
     dispath(signInStart())
       let res = await fetch("/api/v1/auth/signin",{
         method:"POST",
+        credentials:"include",
         headers:{
           'Content-Type':'application/json'
         },

@@ -4,14 +4,14 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
+app.use(cookieParser());
 import "./db/db.js";
 dotenv.config();
 app.use(cors({
     credentials:true,
-    
 }));
-app.use(cookieParser());
 app.use(express.json());
+
 
 const PORT = process.env.PORT;
  //Routes 
