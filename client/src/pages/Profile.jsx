@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import {app} from '../firebase';
 import axios from 'axios'
-import { deleteUserFailure, deleteUserStart, deleteUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
+import { deleteUserFailure, deleteUserStart, deleteUserSuccess, singOutUserFailure, singOutUserStart, singOutUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
 const Profile = () => {
   const {currentUser, loading, error} = useSelector(state=>state.user);
   const fileRef = useRef(null);
@@ -93,12 +93,28 @@ const Profile = () => {
       
     }
   }
+
+  const handleSingOut = async () =>{
+      try {
+        dispatch(singOutUserStart());
+        const res = await fetch('/api/v1/auth/signout');
+        const data = await res.json();
+        if(data.success == false){
+          dispatch(singOutUserFailure(data.message));
+          return;
+        }
+        dispatch(singOutUserSuccess(data))
+      } catch (error) {
+        dispatch(singOutUserFailure(error));
+       
+      }
+  }
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <input type="file" onChange={(e)=>setFile(e.target.files[0])} ref={fileRef} name="" id="" hidden accept='image/*'/>
-        <img className='rounded-full w-24 h-24 object-cover cursor-pointer self-center mt-2' onClick={()=>fileRef.current.click()} src={formData?.avatar || currentUser?.avatar} alt="profile Image" />
+        <img className='bg-gradient-to-r from-pink-500 to-yellow-500 p-2 rounded-full w-24 h-24 object-cover cursor-pointer self-center mt-2' onClick={()=>fileRef.current.click()} src={formData?.avatar || currentUser?.avatar} alt="profile Image" />
         <p className='text-sm self-center'>
           {fileUploadError ?<span className='text-red-700%'>{'Error Image upload <Image should be of 2 Mb>'}</span>
           : filePercentage>0 && filePercentage<100
@@ -119,7 +135,7 @@ const Profile = () => {
       </form>
       <div className='my-5 flex justify-between'>
         <span onClick={handleDelete} className='text-red-700 cursor-pointer hover:underline'>Delete Account</span>
-        <span className='text-red-700 cursor-pointer hover:underline'>Sign Out</span>
+        <span onClick={handleSingOut} className='text-red-700 cursor-pointer hover:underline'>Sign Out</span>
 
 
       </div>
