@@ -56,7 +56,7 @@ export const google = async (req,res,next)=>{
             const username =req.body.name.split(" ").join("").toLowerCase()+ Math.random().toString(36).slice(-4);
             const newUser = new User({username, email:req.body.email, password:hashPass})
             await newUser.save();
-            const token = jwt.sign({id:newUser._id},process.env.JWT_SECRET);
+            const token = jwt.sign({id:newUser._id} ,process.env.JWT_SECRET);
             const {password:pass, ...rest} = newUser._doc;
             res.cookie('access_token',token, {
                 httpOnly:true,
