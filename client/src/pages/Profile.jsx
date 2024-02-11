@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import {app} from '../firebase';
-import axios from 'axios'
+import {Link} from 'react-router-dom'
 import { deleteUserFailure, deleteUserStart, deleteUserSuccess, singOutUserFailure, singOutUserStart, singOutUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice';
 const Profile = () => {
   const {currentUser, loading, error} = useSelector(state=>state.user);
@@ -132,6 +132,7 @@ const Profile = () => {
         <button disabled={loading} className='bg-slate-700 text-white rounded-lg uppercase p-3 hover:opacity-95 disabled:opacity-80'>
           {loading ?'Loading ... ':'Update'}
         </button>
+        <Link to={"/listing/create"} className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95'>Create Listing</Link>
       </form>
       <div className='my-5 flex justify-between'>
         <span onClick={handleDelete} className='text-red-700 cursor-pointer hover:underline'>Delete Account</span>
