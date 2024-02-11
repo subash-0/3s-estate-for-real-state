@@ -17,6 +17,7 @@ const PORT = process.env.PORT;
  //Routes 
  import userRoute from "./db/routers/user.router.js";
  import authRoute from "./db/routers/auth.route.js";
+ import listingRoute from "./db/routers/listing.route.js";
 
 
 app.listen(PORT,()=>{
@@ -25,6 +26,7 @@ app.listen(PORT,()=>{
 
 app.use("/api/v1",userRoute);
 app.use("/api/v1",authRoute);
+app.use("/api/v1",listingRoute);
 
 app.use((error,req,res,next)=>{
     const statusCode = error.statusCode || 500;

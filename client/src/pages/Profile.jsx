@@ -114,7 +114,7 @@ const Profile = () => {
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <input type="file" onChange={(e)=>setFile(e.target.files[0])} ref={fileRef} name="" id="" hidden accept='image/*'/>
-        <img className='bg-gradient-to-r from-pink-500 to-yellow-500 p-2 rounded-full w-24 h-24 object-cover cursor-pointer self-center mt-2' onClick={()=>fileRef.current.click()} src={formData?.avatar || currentUser?.avatar} alt="profile Image" />
+        <img className='bg-gradient-to-r from-pink-500 to-yellow-500 p-2 rounded-full w-25 h-25 object-cover aspect-square cursor-pointer self-center mt-2' onClick={()=>fileRef.current.click()} src={formData?.avatar || currentUser?.avatar} alt="profile Image" />
         <p className='text-sm self-center'>
           {fileUploadError ?<span className='text-red-700%'>{'Error Image upload <Image should be of 2 Mb>'}</span>
           : filePercentage>0 && filePercentage<100

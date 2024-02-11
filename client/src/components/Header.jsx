@@ -23,7 +23,7 @@ const Header = () => {
       
       </div>
       <div className='flex justify-center items-center '>
-      <ul className='flex gap-5 fixed bottom-4  p-3 px-5 justify-center items-center   rounded-full uppercase bg-blue-100 backdrop-blur-3xl hover:drop-shadow-sm'>
+      <ul className='flex gap-5 fixed bottom-4  p-3 px-5 justify-center items-center   rounded-full uppercase bg-blue-100 backdrop-blur-md hover:drop-shadow-sm'>
         <Link to={"/"}>
         <li className='hover:bg-slate-500 p-2  hover:text-white rounded-full flex gap-3 items-center justify-center'> <FaHome/> </li>
         </Link>
@@ -31,7 +31,7 @@ const Header = () => {
         <li className='hover:bg-slate-500 p-2  hover:text-white rounded-full flex gap-3 items-center justify-center'> <FaUser/></li>
         </Link>
         <Link  to={"/profile"}>
-            {currentUser ? <img src={currentUser.avatar} className='rounded-full h-9 w-9 object-coverhover hover:bg-slate-500 p-1 hover:text-white mx-5' alt="Profile IMage" /> :<li className='hover:bg-slate-500 p-2 hover:text-white rounded-full flex gap-3 items-center justify-center'> <FaSignInAlt/></li>}
+            {currentUser ? <img src={currentUser.avatar} className='rounded-full h-8 w-8 object-coverhover hover:bg-slate-500 p-1 hover:text-white bg-gradient-to-r from-pink-500 to-yellow-500' alt="Profile IMage" /> :<li className='hover:bg-slate-500 p-2 hover:text-white rounded-full flex gap-3 items-center justify-center'> <FaSignInAlt/></li>}
         </Link>
      
       </ul>
