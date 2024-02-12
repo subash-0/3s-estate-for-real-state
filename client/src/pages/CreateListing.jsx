@@ -4,6 +4,7 @@ import {app} from '../firebase.js';
 const CreateListing = () => {
     const [files, setFiles] = useState([]);
     const [imageUploadError, setImageUploadError] = useState(false);
+    const [uploadImage, setUploadImage] = useState(false);
     const [formData, setFormData] = useState({
         imageUrls:[],
 
@@ -12,6 +13,8 @@ const CreateListing = () => {
     const handleImageUpload=(e)=>{
             e.preventDefault();
             if(files.length>0 && files.length+ formData.imageUrls?.length<7){
+                setUploadImage(true);
+                setImageUploadError(false)
                 const promises = [];
                 for(let i=0;i<files?.length;i++){
                     promises.push(storeImage(files[i]))
@@ -19,11 +22,13 @@ const CreateListing = () => {
                 Promise.all(promises).then((urls)=>{
                     setFormData({...formData, imageUrls:formData.imageUrls.concat(urls)});
                     setImageUploadError(false);
+                    setUploadImage(false);
                 }).catch((err)=>{
                     setImageUploadError('Image Upload failed (2 mb max/image)')
                 })
             }else{
                 setImageUploadError('You can only upload 6 images per listing')
+                setUploadImage(false)
             }
     }
     const storeImage= async(files)=>{
@@ -120,7 +125,9 @@ const CreateListing = () => {
                 </p>
                 <div className='flex gap-4'>
                     <input type="file" onChange={(e)=>setFiles(e.target.files)} id='images' accept='image/*' multiple className='p-3 border border-gray-300 rounded-xl w-full' />
-                    <button onClick={handleImageUpload} className='p-3 text-green-700  border border-green-700 rounded uppercase  hover:shadow-lg disabled:opacity-80'>Upload</button>
+                    <button disabled={uploadImage} onClick={handleImageUpload} className='p-3 text-green-700  border border-green-700 rounded uppercase  hover:shadow-lg disabled:opacity-80'>
+                        {uploadImage?'Uploading..':'upload'}
+                    </button>
 
           
                 </div>
