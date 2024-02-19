@@ -125,12 +125,28 @@ const Profile = () => {
       setListingError(true)
     }
   }
+const handleListingDelete =async(id)=>{
+  try {
+    const res = await fetch(`/api/v1/listing/delete/${id}`,{
+      method:'DELETE',
+    });
+    const data = await res.json();
+    if(data.success == false){
+      console.log("Something went wrong !");
+      return;
+    }
+    setUserListing((prev)=>prev.filter((listing)=>listing._id !== id));
+  } catch (error) {
+    
+  }
+
+}
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
         <input type="file" onChange={(e)=>setFile(e.target.files[0])} ref={fileRef} name="" id="" hidden accept='image/*'/>
-        <img className='bg-gradient-to-r from-pink-500 to-yellow-500 p-2 rounded-full w-25 h-25 object-cover aspect-square cursor-pointer self-center mt-2' onClick={()=>fileRef.current.click()} src={formData?.avatar || currentUser?.avatar} alt="profile Image" />
+        <img className='bg-gradient-to-r from-pink-500 to-yellow-500 p-2 rounded-full w-24 h-24 object-cover aspect-square cursor-pointer self-center mt-2' onClick={()=>fileRef.current.click()} src={formData?.avatar || currentUser?.avatar} alt="profile Image" />
         <p className='text-sm self-center'>
           {fileUploadError ?<span className='text-red-700%'>{'Error Image upload <Image should be of 2 Mb>'}</span>
           : filePercentage>0 && filePercentage<100
@@ -177,8 +193,8 @@ const Profile = () => {
             </Link>
            
             <div className='flex flex-col items-center'>
-              <button className='text-red-700 uppercase text-sm'> DELETE</button>
-              <button className='text-green-700 uppercase text-sm'> EDIT</button>
+              <button className='text-red-700 uppercase text-sm cursor-pointer hover:underline' onClick={()=>handleListingDelete(listing._id)} > DELETE</button>
+              <button className='text-green-700 uppercase text-sm cursor-pointer hover:underline'> EDIT</button>
             </div>
           </div>
         ))}
