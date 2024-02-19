@@ -5,3 +5,4 @@ export { default as SignUp} from "./SignUp";
 export { default as Profile} from "./Profile";
 export { default as CreateListing} from "./CreateListing";
 export { default as UpdateListing} from "./UpdateListing";
+export { default as ListingPage} from "./ListingPage";

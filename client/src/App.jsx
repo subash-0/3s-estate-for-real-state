@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import {About , Home , SignIn, SignUp, Profile,CreateListing, UpdateListing} from "./pages";
+import {About , Home , SignIn, SignUp, Profile,CreateListing, UpdateListing, ListingPage} from "./pages";
 import { Header, PrivateRoute} from './components';
 const App = () => {
   return (
@@ -9,6 +9,7 @@ const App = () => {
       <Header />
       <Routes>
         <Route path='/' element={<Home />}  />
+        <Route path='/listing/:listId' element={<ListingPage />}  />
         <Route path='/sign-in' element={<SignIn />}  />
         <Route path='/sign-up' element={<SignUp />}  />
         <Route element ={<PrivateRoute />}  >
