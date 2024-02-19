@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import {useNavigate,useParams} from 'react-router-dom'
 import {useSelector,useDispatch} from 'react-redux'
 import { MdDelete } from "react-icons/md";
 import { FaCloudUploadAlt } from "react-icons/fa";
@@ -11,7 +11,8 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../firebase.js";
-const CreateListing = () => {
+const UpdateListing = () => {
+    const params = useParams();
   const navigate = useNavigate();
   const {currentUser} = useSelector(state=>state.user);
   const [files, setFiles] = useState([]);
@@ -33,7 +34,19 @@ const CreateListing = () => {
     parkings: false,
     furnished: false,
   });
-  console.log(formData);
+  
+  const listId = params.listingId;
+  useEffect(()=>{
+    const fetchListing = async ()=>{
+        const result = await fetch(`/api/v1/listing/getListing/${listId}`);
+        const data = await result.json();
+        if(data.success === false){
+            return;
+        }
+        setFormData(data);
+    }
+    fetchListing();
+  },[])
   const handleImageUpload = (e) => {
     e.preventDefault();
     if (files.length > 0 && files.length + formData.imageUrl?.length < 7) {
@@ -121,8 +134,8 @@ const CreateListing = () => {
       if(+formData.regularPrice<+formData.discountPrice) return setError("Please check your price, again !");
       setLoading(true);
       setError(false);
-      const res = await fetch('/api/v1/listing/create',{
-        method:'POST',
+      const res = await fetch(`/api/v1/listing/update/${listId}`,{
+        method:'PUT',
         headers:{
           'Content-Type':'application/json',
         },
@@ -149,7 +162,7 @@ const CreateListing = () => {
   return (
     <main className="p-3 max-w-4xl mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">
-        Create a Listing
+        Update a Listing
       </h1>
       <form  onSubmit={handFormSubmit} className="flex flex-col sm:flex-row gap-4">
         <div className="flex flex-col gap-4 flex-1">
@@ -297,7 +310,7 @@ const CreateListing = () => {
             formData.imageUrl?.map((url, i) => (
               <div
                 key={url}
-                className=" flex justify-between p-3 border items-center"
+                className=" flex justify-between px-4 border items-center"
               >
                 <img
                   src={url}
@@ -306,14 +319,14 @@ const CreateListing = () => {
                 />
                 <button
                   onClick={() => handleRemoveImage(i)}
-                  className="text-red-700 text-sm uppercase hover:opacity-75 disabled:opacity-80"
+                  className="text-red-700 hover:opacity-75 shadow-md rounded-full p-1"
                 >
-                 <MdDelete />
+                  <MdDelete />
                 </button>
               </div>
             ))}
           <button disabled={loading} className="p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80">
-            {loading?'Creating ....':'Create Listing'}
+            {loading?'Updating....':'Update Listing'}
           </button>
           {error && <p className="text-sm text-red-700">{error}</p>}
         </div>
@@ -322,4 +335,4 @@ const CreateListing = () => {
   );
 };
 
-export default CreateListing;
+export default UpdateListing;

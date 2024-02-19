@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import { RiFileEditFill } from "react-icons/ri";
+import { MdDeleteOutline } from "react-icons/md";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import {app} from '../firebase';
 import {Link} from 'react-router-dom'
@@ -182,7 +184,7 @@ const handleListingDelete =async(id)=>{
         userListing && userListing.length >0 && <div className="flex flex-col gap-4">
           <h1 className='text-center text-2xl  mt-7  font-semibold '>Your Listings</h1>
          { userListing.map((listing,i)=>(
-          <div key={i} className="border rounded-lg p-3 flex justify-between items-center gap-4">
+          <div key={i} className="border rounded-lg p-3 shadow-sm flex justify-between items-center gap-4">
             <Link to={`/listing/${listing._id}`}>
             <img src={listing?.imageUrl[0]} alt="listing cover" className='h-16 w-16 object-contain' />
             </Link>
@@ -192,9 +194,12 @@ const handleListingDelete =async(id)=>{
             </p>
             </Link>
            
-            <div className='flex flex-col items-center'>
-              <button className='text-red-700 uppercase text-sm cursor-pointer hover:underline' onClick={()=>handleListingDelete(listing._id)} > DELETE</button>
-              <button className='text-green-700 uppercase text-sm cursor-pointer hover:underline'> EDIT</button>
+            <div className='flex flex-col items-center gap-2'>
+              <button className='text-red-700 uppercase border shadow-sm rounded-full p-1 hover:bg-red-700 hover:text-white cursor-pointer hover:underline' onClick={()=>handleListingDelete(listing._id)} > <MdDeleteOutline /></button>
+
+              <Link to={`/listing/upate-listing/${listing._id}`}>
+              <button className='text-green-700 uppercase border shadow-sm  hover:border-none rounded-full p-1 hover:bg-green-700 hover:text-white  text-sm cursor-pointer hover:underline'> <RiFileEditFill /></button>
+              </Link>
             </div>
           </div>
         ))}

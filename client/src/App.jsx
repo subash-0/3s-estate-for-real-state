@@ -1,7 +1,7 @@
 
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import {About , Home , SignIn, SignUp, Profile,CreateListing} from "./pages";
+import {About , Home , SignIn, SignUp, Profile,CreateListing, UpdateListing} from "./pages";
 import { Header, PrivateRoute} from './components';
 const App = () => {
   return (
@@ -14,6 +14,7 @@ const App = () => {
         <Route element ={<PrivateRoute />}  >
         <Route path='/profile' element={<Profile />}  />
         <Route path='/listing/create' element={<CreateListing />}  />
+        <Route path='/listing/upate-listing/:listingId' element={<UpdateListing />}  />
         </Route>
         <Route path='/about' element={<About />}  />
       </Routes>
