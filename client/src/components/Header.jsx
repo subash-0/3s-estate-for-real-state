@@ -22,7 +22,7 @@ const Header = () => {
       </form>
       
       </div>
-      <div className='flex justify-center items-center '>
+      <div className='flex justify-center items-center opacity-10 hover:opacity-100 '>
       <ul className='flex gap-5 fixed bottom-4  p-3 px-5 justify-center items-center   rounded-full uppercase bg-blue-100 backdrop-blur-md hover:drop-shadow-sm'>
         <Link to={"/"}>
         <li className='hover:bg-slate-500 p-2  hover:text-white rounded-full flex gap-3 items-center justify-center'> <FaHome/> </li>
