@@ -6,3 +6,4 @@ export { default as Profile} from "./Profile";
 export { default as CreateListing} from "./CreateListing";
 export { default as UpdateListing} from "./UpdateListing";
 export { default as ListingPage} from "./ListingPage";
+export { default as SearchPage} from "./SearchPage";
