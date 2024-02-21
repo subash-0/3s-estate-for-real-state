@@ -5,6 +5,9 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily:{
+      'preeti':['preeti']
+    }
   },
   plugins: [],
 }

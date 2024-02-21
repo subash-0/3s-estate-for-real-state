@@ -4,3 +4,7 @@
 body {
     background-color: rgb(241, 245, 241);
 }
+@font-face {
+    font-family: preeti;
+    src: url('./fonts/Preeti.otf') format('opentype');
+}

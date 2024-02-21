@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
-
+import { ListingComponent, Loading } from '../components';
 const SearchPage = () => {
     const navigate = useNavigate(); 
     const [loading, setLoading] = useState(false);
@@ -100,7 +100,6 @@ const SearchPage = () => {
         <div className="p-7 border border-b-2 shadow-sm md:border-r-2 md:min-h-screen md:max-w-min">
             <form onSubmit={handleSubmit} className='flex flex-col gap-8' >
                 <div className="flex items-center gap-2">
-                    <label className='whitespace-nowrap font-semibold'>Search Term:</label> 
                     <input type="text" id='searchTerm' placeholder='Search .....'
                     value={sideBarData.searchTerm}
                     onChange={handleChage}
@@ -170,8 +169,24 @@ const SearchPage = () => {
                 <button className='w-full rounded-lg bg-slate-700 text-white uppercase hover:opacity-90 p-2'>Search</button>
             </form>
         </div>
-        <div className="w-full p-3">
+        <div className="flex-1 w-full p-3">
             <h1 className='text-2xl font-semibold border-b p-3 text-slate-700 mt-1 w-full' >Search Results:</h1>
+            
+            <div className=" py-7 flex gap-3 justify-center flex-wrap">
+           
+                {!loading && listings?.length <1 && (
+                    <p className='text-center text-slate-700'>No Listing Found !</p>
+                )}
+                {
+                    loading &&  <Loading />
+                }
+                {
+                    !loading && listings && listings?.map((list,i)=>(
+                        <ListingComponent key={i} list={list} />
+                    ))
+                }
+
+            </div>
         </div>
     </div>
   )
