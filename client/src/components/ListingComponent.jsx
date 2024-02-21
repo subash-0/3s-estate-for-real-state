@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
 import { LiaBedSolid } from "react-icons/lia";
 import { MdLocationOn, MdWifi} from 'react-icons/md'
 const ListingComponent = ({list}) => {
-    console.log(list)
+  
   return (
     <div className='bg-white shadow-lg hover:shadow-2xl w-full sm:w-[19rem] rounded-lg overflow-hidden'>
         <Link to={`/listing/${list._id}`}>

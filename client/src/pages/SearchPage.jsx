@@ -5,6 +5,7 @@ const SearchPage = () => {
     const navigate = useNavigate(); 
     const [loading, setLoading] = useState(false);
     const [listings, setListings] = useState([]);
+    const [showMore, setshowMore] = useState(false);
     const [sideBarData, setsideBarData] = useState({
         searchTerm:'',
         type:'all',
@@ -14,7 +15,6 @@ const SearchPage = () => {
         sort:'createdAt',
         order:'desc',
     })
-    console.log(listings)
     useEffect(() => {
             const urlParams = new URLSearchParams(location.search);
             const searchTermURL = urlParams.get('searchTerm',sideBarData.searchTerm)
@@ -45,11 +45,15 @@ const SearchPage = () => {
 
         const fetchListings = async()=>{
             setLoading(true);
+            setshowMore(false)
             const searchQuery = urlParams.toString();
             const res = await fetch(`/api/v1/listing/getall?${searchQuery}`);
             const data = await res.json();
             if(data.success = false){
                 return;
+            }
+            if(data?.length >4){
+                setshowMore(true)
             }
             setListings(data);
             setLoading(false);
@@ -92,7 +96,21 @@ const SearchPage = () => {
 
     }
 
-
+const fetMoreData= async ()=>{
+    const numberOfListings = listings?.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('startIndex',startIndex);
+    const searchQuery = urlParams.toString();
+    setLoading(true);
+    const res = await fetch(`/api/v1/listing/getall?${searchQuery}`);
+    const data = await res.json();
+    if(data.length <4){
+        setshowMore(false);
+    }
+    setListings([...listings,...data])
+    setLoading(false);
+}
 
 
   return (
@@ -187,6 +205,13 @@ const SearchPage = () => {
                 }
 
             </div>
+            {
+                showMore && 
+                <button className='text-green-700 hover:underline text-center w-full' 
+                        onClick={fetMoreData}>
+                    Show more
+                </button>
+            }
         </div>
     </div>
   )
