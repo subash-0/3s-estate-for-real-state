@@ -193,7 +193,7 @@ const CreateListing = () => {
               <input type="checkbox" name="" id="rent" className="w-5" onChange={handChange} checked={formData.type==='rent'} />
               <span>Rent</span>
             </div>
-            <div className="flex gap-2">
+            Vite + React           <div className="flex gap-2">
               <input type="checkbox" name="" id="parkings" className="w-5" onChange={handChange} checked={formData.parkings} />
               <span>Parking Spot</span>
             </div>

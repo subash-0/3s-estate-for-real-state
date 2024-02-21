@@ -78,7 +78,7 @@ const UpdateListing = () => {
       const storage = getStorage(app);
       const fileName = new Date().getTime() + files.name;
       const storageRef = ref(storage, fileName);
-      const uploadTask = uploadBytesResumable(storageRef, files);
+      const uploadTask = uploadBytesResumable(storageRef, files);Vite + React
       uploadTask.on(
         "state_changed",
         (snapshot) => {

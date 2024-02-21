@@ -5,14 +5,18 @@ import {useParams} from 'react-router-dom'
 import { MdLocationPin } from "react-icons/md";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
+import {useSelector} from 'react-redux'
 import {Navigation} from 'swiper/modules';
 import 'swiper/css/bundle';
+import {Contact} from '../components'
 const ListingPage = () => {
+    const {currentUser} = useSelector((state)=>state.user);
     SwiperCore.use([Navigation]);
     const [listing, setListing] = useState(null)
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false)
     const params = useParams();
+    const [constact, setConstact] = useState(false);
     const listId = params.listId;
     useEffect(() => {
       const fetchListing = async ()=>{
@@ -44,19 +48,22 @@ const ListingPage = () => {
         {listing && !loading && !error &&(
            <>
            <Swiper navigation>
-                {listing.imageUrl.map((url,i)=>(
-                    <SwiperSlide key={i}>
-                        <div className="h-[500px] w-full" style={{background:`url(${url}) center no-repeat`, backgroundSize:'cover'}}>
-                        <div className='absolute bg-white p-2 rounded-full right-2 top-2 text-2xl text-green-700'>
+           <button className='fixed bg-white p-2 rounded-full right-2 top-[120px] shadow-md hover:opacity-95 cursor-pointer z-10 text-2xl text-green-700'>
                             <IoIosShareAlt />
-                        </div>
+                        </button>
+                {listing.imageUrl.map((url,i)=>(
+                    <SwiperSlide key={i} >
+                        <div className="h-[500px] w-full" style={{background:`url(${url}) center no-repeat`, backgroundSize:'cover'}}>
+                       
                         </div>
                     </SwiperSlide>
                 ))}
            </Swiper>
+         
            <div className='p-3 max-w-screen-2xl mx-auto'>
+           
            {listing && (
-                <h1 className='text-2xl font-semibold'>
+                <h1 className='text-2xl font-semibold mt-10'>
                     {listing?.name}
                      -$
                     {
@@ -107,6 +114,20 @@ const ListingPage = () => {
                    {+listing?.furnished ? `Furnished` : `Unfurnished`}
                 </li>
             </ul>
+
+            <div className="mb-20">
+                {
+                    currentUser && !constact && listing?.userRef!==currentUser._id &&(
+                        <div className=" flex gap-4 sm:6">
+                         <button onClick={()=>setConstact(true)} className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 w-full p-3 '>Contact LandLord</button>
+                        <button className='bg-green-700 text-white rounded-lg uppercase hover:opacity-95 w-full p-3 '>BOOK VIA ESEWA</button>
+                        </div>
+                      
+                    )
+                }
+                {constact && <Contact listing = {listing} />}
+               
+            </div>
            </div>
         
 
