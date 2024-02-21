@@ -24,7 +24,7 @@ const Contact = ({listing}) => {
     setMessage(e.target.value)
   }
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center hue-rotate-90">
     <div className='flex flex-col gap-3 drop-shadow-2xl z-10 bg-slate-200 p-3 rounded-lg'>
       <p>
         Contact <span className='font-semibold'>{landLord?.username}</span>{' '}
