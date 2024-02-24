@@ -42,7 +42,7 @@ const SignIn = () => {
   }
   }
   return (
-    <div className='p-3 max-w-lg mx-auto'>
+    <div className='p-3 min-h-screen max-w-lg mx-auto flex flex-col justify-center'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
       <div>
         <form className='flex flex-col gap-4 ' onSubmit={formHandle}>

@@ -120,7 +120,7 @@ const fetMoreData= async ()=>{
 
 
   return (
-    <div className='flex flex-col md:flex-row'>
+    <div className='flex flex-col min-h-screen md:flex-row'>
         <div className="p-7 border border-b-2 shadow-sm md:border-r-2 md:min-h-screen md:max-w-min">
             <form onSubmit={handleSubmit} className='flex flex-col gap-8' >
                 <div className="flex items-center gap-2">

@@ -45,7 +45,7 @@ const ListingPage = () => {
     
     
   return (
-    <main>
+    <main className='min-h-screen'>
         {loading && <p className='text-green-700 text-center text-sm'>Loading ...</p>  }
         {error && <p className='text-green-700 text-clip text-sm'>Something went wrong!</p>  }
         {listing && !loading && !error &&(

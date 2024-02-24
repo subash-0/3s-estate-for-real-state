@@ -2,7 +2,7 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import {About , Home , SignIn, SignUp, Profile,CreateListing, UpdateListing, ListingPage, SearchPage} from "./pages";
-import { Header, PrivateRoute} from './components';
+import { Footer, Header, PrivateRoute} from './components';
 const App = () => {
   return (
     <BrowserRouter>
@@ -20,6 +20,7 @@ const App = () => {
         </Route>
         <Route path='/about' element={<About />}  />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }

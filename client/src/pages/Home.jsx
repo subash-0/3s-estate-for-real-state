@@ -52,7 +52,7 @@ const Home = () => {
   }, [])
   
   return (
-    <div >
+    <div className='min-h-screen'>
       {/* top */}
       <div className=" flex flex-col gap-6 p-28  px-3 max-w-6xl mx-auto">
         <h1 className='text-slate-700 font-bold text-3xl lg:text-6xl'>
@@ -67,11 +67,11 @@ const Home = () => {
         </div>
         <Link to={'/search'} className='text-xs sm:text-sm text-blue-700 font-bold hover:underline'>Let's get Started...</Link>
       </div>
-      <Swiper navigation>
+      <Swiper navigation className='z-10'>
          
                 {rentListings && rentListings?.length>0 && rentListings?.map((list,i)=>(
                     <SwiperSlide key={i} >
-                        <div className="h-[500px] w-full" style={{background:`url(${list.imageUrl[0]}) center no-repeat`, backgroundSize:'cover'}}>
+                        <div className="h-[500px] w-full z-10" style={{background:`url(${list.imageUrl[0]}) center no-repeat`, backgroundSize:'cover'}}>
                        
                         </div>
                     </SwiperSlide>
