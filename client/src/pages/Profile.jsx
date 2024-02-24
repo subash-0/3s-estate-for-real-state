@@ -193,7 +193,7 @@ useEffect(() => {
         </p>
         <input type="text" id='username' defaultValue={currentUser.username} placeholder='User name' className='p-3 rounded-lg' onChange={handleChange} />
         <input type="email" id='email' defaultValue={currentUser.email} placeholder='email ' className='p-3 rounded-lg' onChange={handleChange} />
-        <input type="number" id='phone' placeholder='Phone Number ' defaultValue={currentUser?.phone} className='p-3 rounded-lg' onChange={handleChange} />
+        <input type="number" id='owernerPhone' placeholder='Phone Number ' defaultValue={currentUser?.owernerPhone} className='p-3 rounded-lg' onChange={handleChange} />
           <div className="bg-white border p-2 rounded-lg flex items-center justify-center">
           <input type={passwordShow?"text":"password"} placeholder='Your password' id="password" className='bg-transparent focus:outline-none p-1 w-full' onChange={handleChange} />
           {passwordShow?<LuEyeOff className='hover:cursor-pointer' onClick={()=>setPasswordShow(false)} />:<LuEye className='hover:cursor-pointer' onClick={()=>setPasswordShow(true)} /> }
