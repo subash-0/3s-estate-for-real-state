@@ -255,7 +255,7 @@ const UpdateListing = () => {
                 className="p-3 w-20 border-gray-300 rounded-lg"
                 name=""
                 id="bedrooms"
-                min="1"
+                min="0"
                 max="5"
                 onChange={handChange}
                 value={formData.bedrooms}
