@@ -198,8 +198,8 @@ const CreateListing = () => {
             required
           />
           <div className="flex gap-6 flex-wrap">
-            <div className="flex gap-2">
-              <input type="checkbox" name="" id="sale" className="w-5" onChange={handChange} checked={formData.type==='sale'} />
+            <div className="flex gap-2" >
+              <input type="checkbox" name="" id="sale" className="w-5" onChange={handChange} checked={formData.type==='sale'} disabled />
               <span>Sell</span>
             </div>
             <div className="flex gap-2">

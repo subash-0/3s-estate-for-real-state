@@ -148,8 +148,8 @@ const fetMoreData= async ()=>{
                     <div className='flex gap-2'>
                         <input type="checkbox" id='sale'
                         onChange={handleChage}
-                        checked={sideBarData.type==='sale'}
-                        className='w-5'/>
+                        checked={sideBarData.type==='sale' }
+                        className='w-5' disabled/>
                         <span>Sale</span>
                     </div>
                     <div className='flex gap-2'>

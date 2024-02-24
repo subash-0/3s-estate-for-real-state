@@ -120,10 +120,10 @@ const ListingPage = () => {
                 <li className='flex items-center gap-1 whitespace-nowrap '>
                     {listing?.type ==='rent'? <div className="flex items-center gap-3">
                     <FaKitchenSet  className='text-lg'/> 
-                   {+listing?.bathrooms <= 1 ? `${listing?.bathrooms} Kitchen` : `${listing?.bathrooms} Kitchens`}
+                   {+listing?.bedrooms <= 1 ? `${listing?.bedrooms} Kitchen` : `${listing?.bedrooms} Kitchens`}
                     </div>:<div className='flex items-center gap-3'>
                     <FaBath  className='text-lg'/> 
-                   {+listing?.bathrooms <= 1 ? `${listing?.bathrooms} Bath` : `${listing?.bathrooms} Baths`}
+                   {+listing?.bedrooms <= 1 ? `${listing?.bedrooms} Bath` : `${listing?.bedrooms} Baths`}
                         </div>}
                    
                 </li>
