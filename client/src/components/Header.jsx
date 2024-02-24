@@ -23,12 +23,12 @@ const Header = () => {
   }, [location.search])
   
   return (
-    <header className='bg-slate-200 shadow-md'>
+    <header className='bg-slate-400 shadow-md'>
       <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
         <Link to={"/"}>
         
       <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-      <span className='text-slate-500'>^3S</span>
+      <span className='text-slate-500'>3S</span>
       <span className='text-slate-700'>-Finder</span>
       </h1>
       </Link>
@@ -41,8 +41,8 @@ const Header = () => {
       </form>
       
       </div>
-      <div className='flex justify-center items-center hover:opacity-100 shadow-md'>
-      <ul className='flex gap-5 fixed bottom-2 z-40  p-3 px-5 justify-center items-center   rounded-full uppercase bg-blue-300 backdrop-blur-md hover:drop-shadow-sm'>
+      <div className='flex justify-center items-center  shadow-md'>
+      <ul className='flex gap-5 fixed bottom-2 z-40 opacity-10 hover:opacity-100 p-3 px-5 justify-center items-center   rounded-full uppercase bg-blue-300 backdrop-blur-md hover:drop-shadow-sm'>
         <Link to={"/"}>
         <li className='hover:bg-slate-500 p-2  hover:text-white rounded-full flex gap-3 items-center justify-center'> <FaHome/> </li>
         </Link>

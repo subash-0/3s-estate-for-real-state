@@ -1,5 +1,6 @@
 import React from 'react'
-import { FaGithub,FaFacebook,FaLinkedin,FaInstagram,FaPhone, FaVoicemail } from "react-icons/fa";
+import { FaGithub,FaFacebook,FaLinkedin,} from "react-icons/fa";
+import { FcBusinessman } from "react-icons/fc";
 import { MdEmail, MdOutlinePhone } from "react-icons/md";
 import {Link} from 'react-router-dom'
 const Footer = () => {
@@ -45,6 +46,9 @@ const Footer = () => {
                 Subash Kumar Yadav
                 </Link>
                 <Link to='https://www.facebook.com/SK.Thecoder' className='text-white flex gap-2 items-center hover:underline' target='_blank'><FaFacebook />
+                Subash Kumar Yadav
+                </Link>
+                <Link to='https://yadavsk.netlify.app/' className='text-white flex gap-2 items-center hover:underline' target='_blank'><FcBusinessman />
                 Subash Kumar Yadav
                 </Link>
               </div>
