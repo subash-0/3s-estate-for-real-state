@@ -23,13 +23,13 @@ const Header = () => {
   }, [location.search])
   
   return (
-    <header className='bg-slate-200 shadow-md'>
+    <header className='bg-slate-400 shadow-md'>
       <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
         <Link to={"/"}>
         
       <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-      <span className='text-slate-500'>^3S</span>
-      <span className='text-slate-700'>-Estate</span>
+      <span className='text-slate-500'>3S</span>
+      <span className='text-slate-700'>-Finder</span>
       </h1>
       </Link>
     

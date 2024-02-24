@@ -14,6 +14,7 @@ const SearchPage = () => {
         offer:false,
         sort:'createdAt',
         order:'desc',
+        status:false,
     })
     useEffect(() => {
             const urlParams = new URLSearchParams(location.search);
@@ -24,19 +25,21 @@ const SearchPage = () => {
             const offerUrl =urlParams.get('offer',sideBarData.offer)
             const sortUrl =urlParams.get('sort',sideBarData.sort)
             const orderUrl =urlParams.get('order',sideBarData.order)
+            const statusUrl =urlParams.get('status',sideBarData.status)
             if(searchTermURL ||
                 typeUrl ||
                 parkingsUrl ||
                 furnishedUrl ||
                 offerUrl || 
                 sortUrl ||
-                orderUrl ){
+                orderUrl || statusUrl ){
                     setsideBarData({
                         searchTerm:searchTermURL || '',
                         type:typeUrl || 'all',
                         furnished:furnishedUrl==='true'?true :false,
                         parkings:parkingsUrl === 'true'?true : false,
                         offer:offerUrl === 'true'?true :false,
+                        status:statusUrl === 'true'?true :false,
                         sort:sortUrl || 'createdAt',
                         order:orderUrl || 'desc'
                         
@@ -55,6 +58,7 @@ const SearchPage = () => {
             if(data?.length >4){
                 setshowMore(true)
             }
+            console.log(data)
             setListings(data);
             setLoading(false);
 
@@ -72,7 +76,7 @@ const SearchPage = () => {
             setsideBarData({...sideBarData,searchTerm:e.target.value});
             
         }
-        if(e.target.id === 'parkings' || e.target.id === 'offer' || e.target.id === 'furnished' ){
+        if(e.target.id === 'parkings' || e.target.id === 'offer' || e.target.id === 'furnished' || e.target.id === 'status' ){
             setsideBarData({...sideBarData, [e.target.id]:e.target.checked || e.target.checked === 'true'? true : false})
         }
         if(e.target.id === 'sort_order'){
@@ -91,6 +95,8 @@ const SearchPage = () => {
         urlParams.set('offer',sideBarData.offer)
         urlParams.set('sort',sideBarData.sort)
         urlParams.set('order',sideBarData.order)
+        urlParams.set('status',sideBarData.status)
+
         const searchQuery = urlParams.toString();
         navigate(`/search?${searchQuery}`)
 
@@ -152,6 +158,13 @@ const fetMoreData= async ()=>{
                         checked={sideBarData.offer}
                         className='w-5'/>
                         <span>Offer</span>
+                    </div>
+                    <div className='flex gap-2'>
+                        <input type="checkbox" id='status'
+                        onChange={handleChage}
+                        checked={sideBarData.status}
+                        className='w-5'/>
+                        <span>status</span>
                     </div>
                 </div>
                 <div className='flex gap-2 flex-wrap items-center  '>

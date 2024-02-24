@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { FaWifi } from "react-icons/fa";
+import { FaKitchenSet } from "react-icons/fa6";
 import { IoIosShareAlt } from "react-icons/io";
 import { FaBath, FaBed, FaChair, FaParking } from "react-icons/fa";
 import {useParams} from 'react-router-dom'
-import { MdLocationPin } from "react-icons/md";
+import { MdLocationOn, MdPhone} from "react-icons/md";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import {useSelector} from 'react-redux'
 import {Navigation} from 'swiper/modules';
 import 'swiper/css/bundle';
 import {Contact} from '../components'
+import {Link} from 'react-router-dom'
 const ListingPage = () => {
     const {currentUser} = useSelector((state)=>state.user);
     SwiperCore.use([Navigation]);
@@ -63,9 +66,9 @@ const ListingPage = () => {
            <div className='p-3 max-w-screen-2xl mx-auto'>
            
            {listing && (
-                <h1 className='text-2xl font-semibold mt-10'>
+                <h1 className='text-2xl font-semibold mt-10 flex gap-3 flex-wrap'>
                     {listing?.name}
-                     -$
+                     <p>- रु.</p>
                     {
                     listing.type ==='offer'?
                     listing?.discountPrice.toLocaleString('en-US') :
@@ -74,12 +77,25 @@ const ListingPage = () => {
                     {
                         listing.type === 'rent' && '/month'
                     }
+                    <p className='text-sm max-w-fit text-white'>
+                        {listing?.type ==='rent'? listing?.status? <p className='px-3 p-1 bg-green-700 rounded-lg'>vacant</p>:<p className='px-3 p-1 bg-red-700 rounded-lg'>booked</p> :listing?.status? <p className='px-3 p-1 bg-green-700 rounded-lg'>unsold</p>:<p className='px-3 p-1 bg-red-700 rounded-lg'>sold</p> }
+                        
+                    </p>
                 </h1>
             )}
+            <div className='flex gap-4 my-1'>
             <p className='flex items-center my-6 gap-2 text-slate-600  text-sm'>
-                    <MdLocationPin /> 
-                    {listing?.address}
+            <Link target='_blank' to={`https://maps.google.com/?q=${listing?.address}`} className='flex items-center gap-2 text-sm hover:underline '>
+                  <MdLocationOn  className='h-4 w-4 text-green-700'/> <p className='truncate text-gray-600'>{listing?.address}</p>
+                </Link>
             </p>
+            <p className='flex items-center my-6 gap-2 text-slate-600  text-sm'>
+            <Link target='_blank' to={`tel:${listing?.owernerPhone}`} className='flex items-center gap-2 text-sm hover:underline '>
+                  <MdPhone  className='h-4 w-4 text-green-700'/> <p className='truncate text-gray-600'>+977-{listing?.owernerPhone}</p>
+                </Link>
+            </p>
+            </div>
+           
 
             <div className='flex gap-4'>
                 <p className='bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
@@ -102,12 +118,24 @@ const ListingPage = () => {
                    {+listing?.bathrooms <= 1 ? `${listing?.bathrooms} Bed` : `${listing?.bathrooms} Beds`}
                 </li>
                 <li className='flex items-center gap-1 whitespace-nowrap '>
-                   <FaBath  className='text-lg'/> 
+                    {listing?.type ==='rent'? <div className="flex items-center gap-3">
+                    <FaKitchenSet  className='text-lg'/> 
+                   {+listing?.bathrooms <= 1 ? `${listing?.bathrooms} Kitchen` : `${listing?.bathrooms} Kitchens`}
+                    </div>:<div className='flex items-center gap-3'>
+                    <FaBath  className='text-lg'/> 
                    {+listing?.bathrooms <= 1 ? `${listing?.bathrooms} Bath` : `${listing?.bathrooms} Baths`}
+                        </div>}
+                   
                 </li>
                 <li className='flex items-center gap-1 whitespace-nowrap '>
-                   <FaParking  className='text-lg'/> 
-                   {+listing?.parkings ? `Parkings` : `No Parkings`}
+                    {listing?.type ==='rent'?
+                    <div className="flex items-center gap-3"> <FaWifi  className='text-lg'/>
+                    {+listing?.parkings ? 'WI-FI' : 'NO WI-FI'} </div>
+                    :
+                    <div className="flex items-center gap-3"> <FaParking  className='text-lg'/> 
+                    {+listing?.parkings ? `Parkings` : `No Parkings`} </div>
+                    }
+                   
                 </li>
                 <li className='flex items-center gap-1 whitespace-nowrap '>
                    <FaChair  className='text-lg'/> 
@@ -117,10 +145,10 @@ const ListingPage = () => {
 
             <div className="mb-20">
                 {
-                    currentUser && !constact && listing?.userRef!==currentUser._id &&(
+                    !constact && listing?.userRef!==currentUser?._id &&(
                         <div className=" flex gap-4 sm:6">
-                         <button onClick={()=>setConstact(true)} className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 w-full p-3 '>Contact LandLord</button>
-                        <button className='bg-green-700 text-white rounded-lg uppercase hover:opacity-95 w-full p-3 '>BOOK VIA ESEWA</button>
+                         <button onClick={()=>setConstact(true)} className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 w-full p-3 '>Contact LandLord via Email</button>
+                        <Link to={`tel:${listing?.owernerPhone}`} target='_blank' className='bg-slate-700 text-white text-center rounded-lg uppercase hover:opacity-95 w-full p-3 '>CONTACT VIA PHONE</Link>
                         </div>
                       
                     )

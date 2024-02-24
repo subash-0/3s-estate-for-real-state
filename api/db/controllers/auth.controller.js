@@ -3,10 +3,10 @@ import { camparePassword, hashPassword } from "../../security/passport.js";
 import { errorHandler } from "../../security/error.js";
 import jwt from "jsonwebtoken";
 export const signup= async (req,res, next)=>{
-    const {username , email, password} = req.body;
+    const {username , email, password, phone} = req.body;
     let HasPassword = hashPassword(password);
         try {
-            const newUser = new User({username , email,password:HasPassword, avatar: req.body.photo});
+            const newUser = new User({username, phone , email,password:HasPassword, avatar: req.body.photo});
             await newUser.save()
             .then(()=>{
             res.status(201).json("User created Successfully !");

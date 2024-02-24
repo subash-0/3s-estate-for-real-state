@@ -17,7 +17,7 @@ export const deleteListing =async(req,res,next)=>{
     if(!listing) return next(errorHandler(404,'Listing not found !'));
     if(req.user.id!=listing.userRef) return next(errorHandler(401,'You can not delete listing'));
     try {
-        const result = await listingModel.findByIdAndDelete(req.params.id);
+        await listingModel.findByIdAndDelete(req.params.id);
         res.status(200).json('Listing Deleted Successfully !');
     } catch (error) {
         next(error)
@@ -65,8 +65,12 @@ export const searchListing =async (req,res,next) =>{
         let furnished = req.query.furnished;
         let type = req.query.type;
         let parkings = req.query.parkings;
+        let status = req.query.status;
         if(offer === undefined || offer === 'false'){
             offer ={$in :[false,true]};
+        }
+        if(status === undefined || status === 'false'){
+            status ={$in :[false,true]};
         }
         if(furnished === undefined || furnished === 'false'){
             furnished ={$in :[false,true]};
@@ -88,6 +92,7 @@ export const searchListing =async (req,res,next) =>{
             furnished,
             parkings,
             type,
+            status,
         }).sort({
             [sort]:order
         }).limit(limit).skip(startIndex);

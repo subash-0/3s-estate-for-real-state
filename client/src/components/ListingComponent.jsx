@@ -1,7 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import { LiaBedSolid } from "react-icons/lia";
-import { MdLocationOn, MdWifi} from 'react-icons/md'
+import {  MdLocationOn, MdWifi, MdWifiOff} from 'react-icons/md'
+import { TbParkingOff, TbParking, TbToolsKitchen2,TbToolsKitchen2Off, TbBath, TbBathOff, TbArmchair2,TbArmchair2Off } from "react-icons/tb";
 const ListingComponent = ({list}) => {
   
   return (
@@ -20,19 +21,31 @@ const ListingComponent = ({list}) => {
                 <p className='text-xl'>रु.
                  </p>{list?.offer ? (+list?.regularPrice- +list?.discountPrice).toLocaleString('en-US'): list?.regularPrice.toLocaleString('en-US')}
                  {list?.type ==='rent'?'/month':'' }
-                 { list?.type==='rent' &&
-                 <p className='p-1 bg-green-700 text-white rounded-lg text-sm'>vacant</p>}
-
+                 { list?.type==='rent'?list?.status?<p className='p-1 bg-green-700 text-white rounded-lg text-sm'>vacant</p>:
+                 <p className='p-1 bg-red-700 text-white rounded-lg text-sm'>booked</p>:list?.status?<p className='p-1 bg-green-700 text-white rounded-lg text-sm'>unsold</p>:<p className='p-1 bg-red-700 px-2 text-white rounded-lg text-sm'>sold</p>
+                 }
                 </div>
                 <div className='flex gap-4 items-center text-green-700'>
                   
                    <div className=" flex items-center gap-1 text-sm">
-                        {list?.bathrooms} <LiaBedSolid  className='h-4 w-4'/>
+                        {list?.bathrooms>0?<LiaBedSolid  className='h-4 w-4'/>:''} 
                     </div>
                    <div className=" flex items-center gap-1 text-sm">
 
-                        {list?.type ==='rent' && list?.parkings?<MdWifi  className='h-4 w-4'/> :''} 
+                        {list?.type ==='rent'? list?.parkings?<MdWifi />:<MdWifiOff /> :list?.parkings?<TbParking />:<TbParkingOff />} 
                       </div>
+                      <div className='flex items-center gap-1 whitespace-nowrap '>
+                    {list?.type ==='rent'? <div className="flex items-center gap-3">
+                   {+list?.bedrooms>0? <TbToolsKitchen2 />: <TbToolsKitchen2Off />}
+                    </div>:<div className='flex items-center gap-3'>
+                   {+list?.bedroomss>0 ? <TbBath /> : <TbBathOff />}
+                        </div>}
+                    </div>
+
+                    <div className="flex items-center gap-3">
+
+                  {list?.furnished?<TbArmchair2 />:<TbArmchair2Off />}
+                    </div>
                  
                 </div>
                

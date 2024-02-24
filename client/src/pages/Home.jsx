@@ -5,38 +5,47 @@ import SwiperCore from 'swiper';
 import {Navigation} from 'swiper/modules';
 
 import 'swiper/css/bundle';
-import { ListingComponent } from '../components';
+import { ListingComponent, Loading } from '../components';
 const Home = () => {
   SwiperCore.use(Navigation)
   const [offerListings, setOfferListings] = useState([])
   const [salesListings, setSalesListings] = useState([])
   const [rentListings, setRentListings] = useState([])
-  console.log(offerListings)
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     const fetchOfferListing =async ()=>{
       try {
+        setLoading(true)
         const res = await fetch('/api/v1/listing/getall?offer=true&limit=4');
         const data = await res.json();
         setOfferListings(data);
+        setLoading(false)
         fetchRentListing();
       } catch (error) {
+        setLoading(false)
       }
     }
     const fetchRentListing =async ()=>{
       try {
+        setLoading(true)
         const res = await fetch('/api/v1/listing/getall?type=rent&limit=4');
         const data = await res.json();
         setRentListings(data);
+        setLoading(false)
         fetchSalesListing();
       } catch (error) {
+        setLoading(false)
       }
     }
     const fetchSalesListing =async ()=>{
       try {
+        setLoading(true)
         const res = await fetch('/api/v1/listing/getall?type=sale&limit=4');
         const data = await res.json();
         setSalesListings(data);
+        setLoading(false)
       } catch (error) {
+        setLoading(false)
       }
     }
     fetchOfferListing();
@@ -60,7 +69,7 @@ const Home = () => {
       </div>
       <Swiper navigation>
          
-                {offerListings && offerListings?.length>0 && offerListings?.map((list,i)=>(
+                {rentListings && rentListings?.length>0 && rentListings?.map((list,i)=>(
                     <SwiperSlide key={i} >
                         <div className="h-[500px] w-full" style={{background:`url(${list.imageUrl[0]}) center no-repeat`, backgroundSize:'cover'}}>
                        
@@ -105,7 +114,26 @@ const Home = () => {
                       </div>
                     )
                   }
+                  {
+                    salesListings && salesListings?.length>0 && (
+                      <div className=" my-10">
+                        <div className="">
+                          <h2 className='text-2xl font-semibold text-slate-600'>Recent places for Sale</h2>
+                          <Link to={'/search?type=rent'} className='text-sm text-blue-800 hover:underline'>
+                           Show more places for sale
+                          </Link>
+                          <div className=' flex gap-3 my-4 flex-wrap'>
+                            {salesListings.map((listing,i)=>(
+
+                          <ListingComponent key={i} list={listing}   />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
            </div>
+           {loading && <Loading />}
       
       </div>
   )

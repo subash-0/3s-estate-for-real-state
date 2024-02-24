@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { RiFileEditFill } from "react-icons/ri";
+import { IoIosHeart } from "react-icons/io";
+import { LuEyeOff,LuEye } from "react-icons/lu";
 import { MdDeleteOutline } from "react-icons/md";
 import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage'
 import {app} from '../firebase';
@@ -16,6 +18,9 @@ const Profile = () => {
   const [formData, setFormData] = useState({});
   const [userUpadte, setUserUpadte] = useState(false)
   const [userListing, setUserListing] = useState([]);
+  const [heart, setHeart] = useState(0);
+  const [showListing, setshowListing] = useState(false)
+  const [passwordShow, setPasswordShow] = useState(false)
   const dispatch = useDispatch();
   useEffect(() => {
     if(file){
@@ -24,7 +29,7 @@ const Profile = () => {
   }, [file])
   console.log(formData)
 
-  const handleChnage = (e)=>{
+  const handleChange = (e)=>{
       setFormData({...formData,
       [e.target.id]:e.target.value,
   })
@@ -80,6 +85,8 @@ const Profile = () => {
 
   }
   const handleDelete =async () =>{
+   let confirmation = confirm('Did you delete your listing ?');
+   if(confirmation){
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`/api/v1/user/delete/${currentUser._id}`,{
@@ -96,6 +103,9 @@ const Profile = () => {
       dispatch(deleteUserFailure(error.message))
       
     }
+  }else{
+    alert('PLease ! Delete Your Listing first.')
+  }
   }
 
   const handleSingOut = async () =>{
@@ -113,20 +123,24 @@ const Profile = () => {
        
       }
   }
-  const handleShowListing = async ()=>{
-    try {
-      setListingError(false);
-      const res = await fetch(`/api/v1/user/showlisting/${currentUser._id}`);
-      const data = await res.json();
-      if(data.success == false){
-        setListingError(true);
-        return;
+  useEffect(() => {
+    const handleShowListing = async ()=>{
+      try {
+        setListingError(false);
+        const res = await fetch(`/api/v1/user/showlisting/${currentUser._id}`);
+        const data = await res.json();
+        if(data.success == false){
+          setListingError(true);
+          return;
+        }
+        setUserListing(data);
+      } catch (error) {
+        setListingError(true)
       }
-      setUserListing(data);
-    } catch (error) {
-      setListingError(true)
     }
-  }
+    handleShowListing();
+  }, [])
+  
 const handleListingDelete =async(id)=>{
   try {
     const res = await fetch(`/api/v1/listing/delete/${id}`,{
@@ -143,12 +157,29 @@ const handleListingDelete =async(id)=>{
   }
 
 }
+useEffect(() => {
+ setHeart(userListing?.length)
+
+}, [userListing])
+
   return (
-    <div className='p-3 max-w-lg mx-auto'>
+    <div className=''>
+      <div className='p-3 max-w-lg mx-auto'>
+
+      
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+        <div className='flex justify-center'>
+          <div className='absolute ml-32 mt-2 animate-bounce'>
+          {heart<1 ? '':heart==1?<IoIosHeart className=' text-red-700' />:(<div className='flex items-center shadow-2xl font-semibold gap-1 '>+{heart-1}<IoIosHeart className='text-red-700' /></div>)}
+          </div>
+          
+          
         <input type="file" onChange={(e)=>setFile(e.target.files[0])} ref={fileRef} name="" id="" hidden accept='image/*'/>
-        <img className='bg-gradient-to-r from-pink-500 to-yellow-500 p-2 rounded-full w-24 h-24 object-cover aspect-square cursor-pointer self-center mt-2' onClick={()=>fileRef.current.click()} src={formData?.avatar || currentUser?.avatar} alt="profile Image" />
+        <img className='bg-gradient-to-r from-pink-500 to-yellow-500 p-2 rounded-full w-[10rem] h-[10rem] object-cover aspect-square cursor-pointer self-center mt-2' onClick={()=>fileRef.current.click()} src={formData?.avatar || currentUser?.avatar} alt="profile Image" />
+
+        </div>
+    
         <p className='text-sm self-center'>
           {fileUploadError ?<span className='text-red-700%'>{'Error Image upload <Image should be of 2 Mb>'}</span>
           : filePercentage>0 && filePercentage<100
@@ -160,10 +191,13 @@ const handleListingDelete =async(id)=>{
           :""
          }
         </p>
-        <input type="text" id='username' defaultValue={currentUser.username} placeholder='User name' className='p-3 rounded-lg' onChange={handleChnage} />
-        <input type="email" id='email' defaultValue={currentUser.email} placeholder='email ' className='p-3 rounded-lg' onChange={handleChnage} />
-        <input type="password" id='password' placeholder='Password ' className='p-3 rounded-lg' onChange={handleChnage} />
-        <button disabled={loading} className='bg-slate-700 text-white rounded-lg uppercase p-3 hover:opacity-95 disabled:opacity-80'>
+        <input type="text" id='username' defaultValue={currentUser.username} placeholder='User name' className='p-3 rounded-lg' onChange={handleChange} />
+        <input type="email" id='email' defaultValue={currentUser.email} placeholder='email ' className='p-3 rounded-lg' onChange={handleChange} />
+        <input type="number" id='phone' placeholder='Phone Number ' defaultValue={currentUser?.phone} className='p-3 rounded-lg' onChange={handleChange} />
+          <div className="bg-white border p-2 rounded-lg flex items-center justify-center">
+          <input type={passwordShow?"text":"password"} placeholder='Your password' id="password" className='bg-transparent focus:outline-none p-1 w-full' onChange={handleChange} />
+          {passwordShow?<LuEyeOff className='hover:cursor-pointer' onClick={()=>setPasswordShow(false)} />:<LuEye className='hover:cursor-pointer' onClick={()=>setPasswordShow(true)} /> }
+          </div> <button disabled={loading} className='bg-slate-700 text-white rounded-lg uppercase p-3 hover:opacity-95 disabled:opacity-80'>
           {loading ?'Loading ... ':'Update'}
         </button>
         <Link to={"/listing/create"} className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95'>Create Listing</Link>
@@ -176,13 +210,19 @@ const handleListingDelete =async(id)=>{
       </div>
       <p className='text-red-700 mt-5'>{error?error:''}</p>
       <p className='text-green-700 mt-5'>{userUpadte?'User Updated Successfully !':''}</p>
-      <button className='text-green-700 w-full' onClick={handleShowListing}>Show listing</button>
+      <button className='text-green-700 w-full' onClick={()=>setshowListing(!showListing)}>{showListing?'Hide':'Show'} listing</button>
       <p className='text-red-700 text-sm mt-5'>
         {listingError?'Error showing Listing':''}
       </p>
+      </div>
+
+
       {
-        userListing && userListing.length >0 && <div className="flex flex-col gap-4">
-          <h1 className='text-center text-2xl  mt-7  font-semibold '>Your Listings</h1>
+        showListing && userListing && userListing.length >0 &&  
+      <div className='max-w-5xl p-3 mx-auto flex flex-col items-center justify-center  mb-20 '>
+
+      <h1 className='text-center text-2xl  my-4  font-semibold '>Your Listings</h1>
+     <div className="flex flex-wrap gap-4">
          { userListing.map((listing,i)=>(
           <div key={i} className="border rounded-lg p-3 shadow-sm flex justify-between items-center gap-4">
             <Link to={`/listing/${listing._id}`}>
@@ -190,7 +230,7 @@ const handleListingDelete =async(id)=>{
             </Link>
             <Link  to={`/listing/${listing._id}`} className='text-slate-700 font-semibold flex-1 hover:underline truncate cursor-pointer'>
             <p>
-            {listing.name}
+            {listing.name?.length >15 ? <p>{listing.name?.slice(0,15)}...</p> :listing.name}
             </p>
             </Link>
            
@@ -204,7 +244,10 @@ const handleListingDelete =async(id)=>{
           </div>
         ))}
         </div>
-      }
+     
+
+</div>
+ }
     </div>
   )
 }

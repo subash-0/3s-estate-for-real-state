@@ -25,13 +25,15 @@ const CreateListing = () => {
     description: "",
     address: "",
     type: "rent",
-    bedrooms: 1,
+    bedrooms: 0,
     bathrooms: 1,
-    regularPrice: 50,
+    regularPrice: 2500,
     discountPrice: 0,
+    owernerPhone:'',
     offer: false,
     parkings: false,
     furnished: false,
+    status:false,
   });
   console.log(formData);
   const handleImageUpload = (e) => {
@@ -100,7 +102,7 @@ const CreateListing = () => {
         })
     }
 
-    if(e.target.id === 'parkings' || e.target.id === 'furnished' || e.target.id === 'offer'){
+    if(e.target.id === 'parkings' || e.target.id === 'furnished' || e.target.id === 'offer' || e.target.id === 'status'){
         setFormData({
             ...formData,
             [e.target.id] : e.target.checked
@@ -156,7 +158,7 @@ const CreateListing = () => {
           <input
             type="text"
             className="border p-3 rounded-lg"
-            placeholder="Name"
+            placeholder="Owner's name"
             name="name"
             id="name"
             maxLength="62"
@@ -168,7 +170,7 @@ const CreateListing = () => {
           <textarea
             type="text"
             className="border p-3 rounded-lg"
-            placeholder="Description"
+            placeholder="Houses' hescription"
             id="description"
             onChange={handChange}
             value={formData.description}
@@ -184,6 +186,17 @@ const CreateListing = () => {
             value={formData.address}
             required
           />
+          <input
+            type="number"
+            className="border p-3 rounded-lg"
+            placeholder="Owners' phone numbers"
+            name=""
+            maxLength='10'
+            id="owernerPhone"
+            onChange={handChange}
+            value={formData.owernerPhone}
+            required
+          />
           <div className="flex gap-6 flex-wrap">
             <div className="flex gap-2">
               <input type="checkbox" name="" id="sale" className="w-5" onChange={handChange} checked={formData.type==='sale'} />
@@ -194,9 +207,14 @@ const CreateListing = () => {
               <span>Rent</span>
             </div>
             <div className="flex gap-2">
+              <input type="checkbox" name="" id="status" className="w-5" onChange={handChange} checked={formData.status} />
+              <span>{formData.type === 'rent'?'Vacant':'Unsold'}</span>
+            </div>
+            <div className="flex gap-2">
               <input type="checkbox" name="" id="parkings" className="w-5" onChange={handChange} checked={formData.parkings} />
               <span>{formData.type === 'rent'?'WI-FI':'Parking Spot'}</span>
             </div>
+           
             <div className="flex gap-2">
               <input type="checkbox" name="" id="furnished" className="w-5" onChange={handChange} checked={formData.furnished} />
               <span>Furnished</span>
@@ -207,20 +225,7 @@ const CreateListing = () => {
             </div>
           </div>
           <div className="flex flex-wrap gap-4 ">
-            <div className=" flex items-center gap-2">
-              <input
-                type="number"
-                className="p-3 w-20 border-gray-300 rounded-lg"
-                name=""
-                id="bedrooms"
-                min="1"
-                max="5"
-                onChange={handChange}
-                value={formData.bedrooms}
-              />
-              <p>Beds</p>
-            </div>
-            <div className=" flex items-center gap-2">
+          <div className=" flex items-center gap-2">
               <input
                 type="number"
                 className="p-3 w-20 border-gray-300 rounded-lg"
@@ -231,8 +236,22 @@ const CreateListing = () => {
                 onChange={handChange}
                 value={formData.bathrooms}
               />
-              <p>Baths</p>
+              <p>Beds</p>
             </div>
+            <div className=" flex items-center gap-2">
+              <input
+                type="number"
+                className="p-3 w-20 border-gray-300 rounded-lg"
+                name=""
+                id="bedrooms"
+                min="0"
+                max="5"
+                onChange={handChange}
+                value={formData.bedrooms}
+              />
+              <p>{formData.type==='rent'?'Kitchen':"Bath"}</p>
+            </div>
+           
             <div className=" flex items-center gap-2">
               <input
                 type="number"

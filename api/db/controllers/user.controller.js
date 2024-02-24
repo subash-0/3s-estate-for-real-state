@@ -17,6 +17,7 @@ export const updateUser = async (req,res, next)=>{
                 password:req.body.password,
                 email:req.body.email,
                 avatar:req.body.avatar,
+                phone:req.body.phone,
             }
         },{new:true});
         const {password, ...rest} = upUser._doc;

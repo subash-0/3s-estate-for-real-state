@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    phone: {
+      type: String,
+      default:'+977'
+    },
     avatar:{
       type: String,
       default:'https://p7.hiclipart.com/preview/282/256/961/user-profile-avatar-computer-icons-google-account.jpg',

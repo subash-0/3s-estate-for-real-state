@@ -34,7 +34,7 @@ const Contact = ({listing}) => {
 
 
       </textarea>
-      <Link to={`mailto:${landLord?.email}?subject=Regarding  ${listing?.name}&body=${message}`}  target='_blank' className='bg-slate-700 text-white text-center p-3 rounded-lg  hover:opacity-95'>
+      <Link to={`mailto:${landLord?.email}?subject=Regarding${listing?.name}&body=${message}`} target='_blank' className='bg-slate-700 text-white text-center p-3 rounded-lg  hover:opacity-95'>
       Send Message
       </Link>
     </div>

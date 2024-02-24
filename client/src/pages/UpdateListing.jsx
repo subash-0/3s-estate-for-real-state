@@ -33,6 +33,8 @@ const UpdateListing = () => {
     offer: false,
     parkings: false,
     furnished: false,
+    owernerPhone:'',
+    status:false,
   });
   
   const listId = params.listingId;
@@ -113,7 +115,7 @@ const UpdateListing = () => {
         })
     }
 
-    if(e.target.id === 'parkings' || e.target.id === 'furnished' || e.target.id === 'offer'){
+    if(e.target.id === 'parkings' || e.target.id === 'furnished' || e.target.id === 'offer' || e.target.id === 'status'){
         setFormData({
             ...formData,
             [e.target.id] : e.target.checked
@@ -197,6 +199,16 @@ const UpdateListing = () => {
             value={formData.address}
             required
           />
+          <input
+            type="number"
+            className="border p-3 rounded-lg"
+            placeholder="Owners' Phone number"
+            name=""
+            id="address"
+            onChange={handChange}
+            value={formData.owernerPhone}
+            required
+          />
           <div className="flex gap-6 flex-wrap">
             <div className="flex gap-2">
               <input type="checkbox" name="" id="sale" className="w-5" onChange={handChange} checked={formData.type==='sale'} />
@@ -207,8 +219,12 @@ const UpdateListing = () => {
               <span>Rent</span>
             </div>
             <div className="flex gap-2">
+              <input type="checkbox" name="" id="status" className="w-5" onChange={handChange} checked={formData.status} />
+              <span>{formData.type==='rent'?'Vacant':'Unsold'}</span>
+            </div>
+            <div className="flex gap-2">
               <input type="checkbox" name="" id="parkings" className="w-5" onChange={handChange} checked={formData.parkings} />
-              <span>Parking Spot</span>
+              <span> {formData.type==='rent'?'WI-FI':'Parking Spot'} </span>
             </div>
             <div className="flex gap-2">
               <input type="checkbox" name="" id="furnished" className="w-5" onChange={handChange} checked={formData.furnished} />
@@ -220,6 +236,19 @@ const UpdateListing = () => {
             </div>
           </div>
           <div className="flex flex-wrap gap-4 ">
+          <div className=" flex items-center gap-2">
+              <input
+                type="number"
+                className="p-3 w-20 border-gray-300 rounded-lg"
+                name=""
+                id="bathrooms"
+                min="1"
+                max="5"
+                onChange={handChange}
+                value={formData.bathrooms}
+              />
+              <p>Beds</p>
+            </div>
             <div className=" flex items-center gap-2">
               <input
                 type="number"
@@ -231,21 +260,9 @@ const UpdateListing = () => {
                 onChange={handChange}
                 value={formData.bedrooms}
               />
-              <p>Beds</p>
+              <p>{formData.type==='rent'?'Kitchen':"Bath"}</p>
             </div>
-            <div className=" flex items-center gap-2">
-              <input
-                type="number"
-                className="p-3 w-20 border-gray-300 rounded-lg"
-                name=""
-                id="bathrooms"
-                min="1"
-                max="5"
-                onChange={handChange}
-                value={formData.bathrooms}
-              />
-              <p>Baths</p>
-            </div>
+           
             <div className=" flex items-center gap-2">
               <input
                 type="number"
