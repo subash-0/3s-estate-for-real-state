@@ -104,7 +104,7 @@ const ListingPage = () => {
                 {
                     listing?.offer && (
                         <p className="bg-green-700 w-full max-w-[200px] text-white text-center p-1 rounded-md">
-                            ${+listing?.regularPrice -+listing?.discountPrice}
+                            रु.{(+listing?.regularPrice -+listing?.discountPrice).toLocaleString('en-US')}
                         </p>
                     )
                 }
