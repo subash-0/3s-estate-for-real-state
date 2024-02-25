@@ -6,7 +6,7 @@ const About = () => {
       <div className="mx-auto w-full text-center my-5">
       <h1 className='text-3xl font-semibold text-slate-500'>ABOUT 3S-FINDER</h1>
       </div>
-      <div className="text-slate-700 ">
+      <div className="text-slate-700 p-3 ">
      <p> At 3S Finder, we understand the challenges that come with finding the perfect room in Dharan. Whether you're a student, a professional, or someone looking to relocate, the search for the ideal living space can be time-consuming and stressful. That's where we come in.
 
 3S Finder is a revolutionary product brought to you by <b>3S Solutions</b>,  committed to simplifying the room-finding process and making it completely free for users. Our platform is designed with the sole purpose of making your quest for the perfect room in Dharan as effortless as possible.

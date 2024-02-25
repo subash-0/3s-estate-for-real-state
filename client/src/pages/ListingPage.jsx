@@ -66,9 +66,10 @@ const ListingPage = () => {
            <div className='p-3 max-w-screen-2xl mx-auto'>
            
            {listing && (
-                <h1 className='text-2xl font-semibold mt-10 flex gap-3 flex-wrap'>
-                    {listing?.name}
-                     <p>- रु.</p>
+                <h1 className='text-2xl font-semibold mt-10 text-slate-700 flex gap-3 flex-wrap'>
+                  <p>Owner:{listing?.name}</p>  
+                  
+                     <p className='flex gap-2'>- रु.
                     {
                     listing.type ==='offer'?
                     listing?.discountPrice.toLocaleString('en-US') :
@@ -80,6 +81,7 @@ const ListingPage = () => {
                     <p className='text-sm max-w-fit text-white'>
                         {listing?.type ==='rent'? listing?.status? <p className='px-3 p-1 bg-green-700 rounded-lg'>vacant</p>:<p className='px-3 p-1 bg-red-700 rounded-lg'>booked</p> :listing?.status? <p className='px-3 p-1 bg-green-700 rounded-lg'>unsold</p>:<p className='px-3 p-1 bg-red-700 rounded-lg'>sold</p> }
                         
+                    </p>
                     </p>
                 </h1>
             )}
