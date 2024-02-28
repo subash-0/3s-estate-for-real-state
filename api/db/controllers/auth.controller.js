@@ -49,6 +49,7 @@ export const google = async (req,res,next)=>{
             const {password:pass, ...rest} = user._doc;
             res.cookie('access_token',token, {
                 httpOnly:true,
+                expire:new Date(Date.now()+24*60*60*1000),
             }).status(200).json(rest);
         }else{
             const generatePassword = Math.random().toString(36).slice(-8);
@@ -56,10 +57,12 @@ export const google = async (req,res,next)=>{
             const username =req.body.name.split(" ").join("").toLowerCase()+ Math.random().toString(36).slice(-4);
             const newUser = new User({username, email:req.body.email, password:hashPass})
             await newUser.save();
-            const token = jwt.sign({id:newUser._id} ,process.env.JWT_SECRET);
+            const token = jwt.sign({id:newUser._id} ,process.env.JWT_SECRET,{expiresIn:24*60*60*60});
             const {password:pass, ...rest} = newUser._doc;
             res.cookie('access_token',token, {
                 httpOnly:true,
+                expire:new Date(Date.now()+24*60*60*1000),
+                
             }).status(200).json(rest);
         }
         

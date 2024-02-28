@@ -66,10 +66,10 @@ const ListingPage = () => {
            <div className='p-3 max-w-screen-2xl mx-auto'>
            
            {listing && (
-                <h1 className='text-2xl font-semibold mt-10 text-slate-700 flex gap-3 flex-wrap'>
-                  <p>Owner:{listing?.name}</p>  
+                <h1 className='sm:text-2xl text-lg font-semibold mt-10 text-slate-700 flex gap-1 sm:gap-3  flex-wrap'>
+                  <p>{listing?.name}</p>  
                   
-                     <p className='flex gap-2'>- रु.
+                     <p className='flex gap-2'><span className='hidden sm:block'>-</span> रु.
                     {
                     listing.type ==='offer'?
                     listing?.discountPrice.toLocaleString('en-US') :
@@ -85,13 +85,13 @@ const ListingPage = () => {
                     </p>
                 </h1>
             )}
-            <div className='flex gap-4 my-1'>
-            <p className='flex items-center my-6 gap-2 text-slate-600  text-sm'>
+            <div className='flex gap-1 sm:gap-6  flex-wrap my-6'>
+            <p className='flex items-center my-1 gap-2 text-slate-600  text-sm'>
             <Link target='_blank' to={`https://maps.google.com/?q=${listing?.address}`} className='flex items-center gap-2 text-sm hover:underline '>
                   <MdLocationOn  className='h-4 w-4 text-green-700'/> <p className='truncate text-gray-600'>{listing?.address}</p>
                 </Link>
             </p>
-            <p className='flex items-center my-6 gap-2 text-slate-600  text-sm'>
+            <p className='flex items-center my-1 gap-2 text-slate-600  text-sm'>
             <Link target='_blank' to={`tel:${listing?.owernerPhone}`} className='flex items-center gap-2 text-sm hover:underline '>
                   <MdPhone  className='h-4 w-4 text-green-700'/> <p className='truncate text-gray-600'>+977-{listing?.owernerPhone}</p>
                 </Link>

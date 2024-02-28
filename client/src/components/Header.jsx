@@ -42,7 +42,7 @@ const Header = () => {
       
       </div>
       <div className='flex justify-center items-center  shadow-md'>
-      <ul className='flex gap-5 fixed bottom-2 z-40 opacity-10 hover:opacity-100 p-3 px-5 justify-center items-center   rounded-full uppercase bg-blue-300 backdrop-blur-md hover:drop-shadow-sm'>
+      <ul className='flex gap-5 fixed bottom-2 z-40  hover:opacity-100 p-3 px-5 justify-center items-center   rounded-full uppercase bg-transparent hover:backdrop-blur-lg drop-shadow-sm'>
         <Link to={"/"}>
         <li className='hover:bg-slate-500 p-2  hover:text-white rounded-full flex gap-3 items-center justify-center'> <FaHome/> </li>
         </Link>
