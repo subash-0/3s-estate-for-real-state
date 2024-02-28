@@ -56,7 +56,7 @@ const ListingPage = () => {
                         </button>
                 {listing.imageUrl.map((url,i)=>(
                     <SwiperSlide key={i} >
-                        <div className="h-[500px] w-full" style={{background:`url(${url}) center no-repeat`, backgroundSize:'cover'}}>
+                        <div className="h-[500px] w-full" style={{background:`url(${url})center no-repeat`,}}>
                        
                         </div>
                     </SwiperSlide>
@@ -160,7 +160,16 @@ const ListingPage = () => {
             </div>
            </div>
         
-
+                    <div className=" p-10  max-w-5xl max-auto">
+                        <h1 className='text-lg sm:text-2xl'>Related Images:</h1>
+                        <div className="flex gap-5 my-6">
+                        {listing?.imageUrl?.map((url,i)=>(
+                            <Link to={url} key={i} target='_blank' className='w-56 h-56 overflow-hidden shadow-md rounded-lg'>
+                                <img src={url} alt="img" className='h-56 w-56 hover:scale-105 transition-all' />
+                            </Link>
+                        ))}
+                        </div>
+                    </div>
            </>
         )}
     </main>
